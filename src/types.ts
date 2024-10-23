@@ -1,0 +1,1 @@
+export type Option<a> = undefined | a;

@@ -1,2 +1,3 @@
-rm *.wasm
-rm output -rf
+rm -f *.wasm
+rm -rf out
+rm -rf dist

@@ -1,19 +1,21 @@
 module Main
 
-from "./src/web.gr" include Web
-use Web.{ module Dom }
+from "./out/grainWeb.gr" include GrainWeb
+use GrainWeb.{ module WebInterface }
 
-abstract type Start = () => Void;
+@unsafe
+provide let cabi_realloc = (originalPtr, originalSize, alignment, newSize) => {
+  GrainWeb.cabi_realloc(originalPtr, originalSize, alignment, newSize)
+}
+abstract type Start = () => Void
 provide let _start: Start = () => {
-  print(Dom.add(1ul, 2ul))
-  let p = Dom.createParagraph("Hello World")
-  print(p)
-  Dom.addDomNode("body", p)
-  let p = Dom.createParagraph("Hello World 2")
-  print(p)
-  Dom.addDomNode("body", p)
-  let p = Dom.createParagraph("Hello World 3")
-  print(p)
-  Dom.addDomNode("body", p)
+  let app = match (WebInterface.query("#app")) {
+    Some(app) => app,
+    None => fail "Failed to get app"
+  }
+  WebInterface.WebElement.print(app);
+  WebInterface.WebElement.getText(app);
+  WebInterface.WebElement.setText(app, "Hello, Grain!")
+
   void
 }

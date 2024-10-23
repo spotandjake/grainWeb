@@ -1,0 +1,22 @@
+{
+	"compilerOptions": {
+		"target": "ES6", // Specify ECMAScript target version
+		"module": "ESNext", // Specify module code generation
+		"lib": ["DOM", "ESNext"], // Specify library files to be included
+		"strict": true, // Enable all strict type-checking options
+		"esModuleInterop": true, // Enables emit interoperability between CommonJS and ES Modules
+		"moduleResolution": "node", // Use Node's module resolution
+		"skipLibCheck": true, // Skip type checking of declaration files
+		"forceConsistentCasingInFileNames": true, // Disallow inconsistently-cased references to the same file
+		"outDir": "./dist", // Redirect output structure to the dist directory
+		"declaration": false, // Generate .d.ts files for your library
+		"sourceMap": false // Generate corresponding .map files
+	},
+	"include": [
+		"**/*.ts" // Include all TypeScript files in the src directory
+	],
+	"exclude": [
+		"node_modules", // Exclude node_modules directory
+		"dist" // Exclude dist directory
+	]
+}

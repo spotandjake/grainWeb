@@ -1,16 +1,20 @@
-package grain:web@0.1.0;
+package spotandjake:grain-web@0.0.1;
 
-interface dom {
-  resource html-element {
-    // Methods
-    set-text: func(text: string);
+interface web-interface {
+  resource web-element {
+    // Queries
+    query: func(selector: string) -> option<web-element>;
+    // Content
+    get-text: func() -> option<string>;
+    set-text: func(text: string) -> web-element;
+    // Children
+    // Debug
+    print: func();
   }
-  // Methods
-  create-paragraph: func(text: string) -> html-element;
-  add-dom-node: func(parent: string, node: html-element);
-  add: func(a: u32, b: u32) -> u32;
+  // queries
+  query: func(selector: string) -> option<web-element>;
 }
 
-world web {
-  import dom;
+world grain-web {
+  import web-interface;
 }

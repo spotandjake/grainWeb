@@ -1,0 +1,20 @@
+{
+  "name": "grain_web",
+  "version": "0.0.1",
+  "main": "grainWeb.ts",
+  "scripts": {
+    "cleanup": "bash cleanup.sh",
+    "package": "rollup -c",
+    "build": "bash build.sh",
+    "example": "bash example.sh",
+    "start": "yarn build && yarn example"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@rollup/plugin-typescript": "^12.1.1",
+    "rollup": "^4.24.0",
+    "tslib": "^2.8.0",
+    "typescript": "^5.6.3"
+  },
+  "packageManager": "yarn@4.5.1"
+}
