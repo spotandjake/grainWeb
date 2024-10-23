@@ -1,25 +1,17 @@
-# Cleanup last build
-```sh
-rm *.wasm
-rm output -rf
+# GrainWeb
+This is meant to be a web framework for the grain programming language, using the component model.
+
+# Testing
+Currently as im just testing the component model do the following to run:
+```bash
+bash ./build.sh
+cd test
+yarn start
 ```
-# Generate Grain Bindings
-```sh
-./wit-bindgen/target/debug/wit-bindgen grain host.wit
-```
-# Compile Our Grain Program
-```sh
-grain compile main.gr --release --use-start-section -o main.wasm
-```
-# Embed wit interface into module
-```sh
-wasm-tools component embed ./host.wit --world host -o main.embedded.wasm main.wasm
-```
-# Create Our Component
-```sh
-wasm-tools component new -o main.component.wasm --adapt ./adapters/wasi_snapshot_preview1.wasm main.embedded.wasm
-```
-# Generate JCO side
-```sh
-jco transpile main.component.wasm -o output --map example:host/bindings=../bindings.js
-```
+
+# Scripts
+* `./build.sh` - This is the main build script
+* `./cleanup.sh` - This script cleans up all of the generated resources
+* `./test.sh` - This script copies the build module into the example directory after building
+* `./vite.sh` - This starts the vite server in the example directory
+* `run.sh` - This script builds the project and then copies the output to the example directory.

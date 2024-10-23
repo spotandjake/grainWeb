@@ -1,0 +1,9 @@
+package grain:web;
+
+interface dom {
+  add: func(a: u32, b: u32) -> u32;
+}
+
+world web {
+  import dom;
+}
