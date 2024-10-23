@@ -34,10 +34,62 @@ provide record Resource<a> {
   rep: a,
 }
 
+provide record HtmlElement {
+  handle: Int32,
+}
+
 provide module Dom {
+  @externalName("create-paragraph")
+  foreign wasm wit_bindgen_createParagraph:
+    (WasmI32, WasmI32) => WasmI32 from "grain:web/dom@0.1.0"
+
+  /// Methods
+  @unsafe
+  provide let createParagraph: String => HtmlElement = text => {
+    let vec_list_canon_lower = text
+    let ptr_list_canon_lower = WasmI32.(+)(
+      WasmI32.fromGrain(vec_list_canon_lower),
+      8n
+    )
+    let len_list_canon_lower = WasmI32.load(
+      WasmI32.fromGrain(vec_list_canon_lower),
+      4n
+    )
+    let ret = wit_bindgen_createParagraph(
+      ptr_list_canon_lower,
+      len_list_canon_lower
+    )
+    let handle_lift = { handle: WasmI32.toGrain(DataStructures.newInt32(ret)), }:
+      HtmlElement
+    handle_lift
+  }
+
+  @externalName("add-dom-node")
+  foreign wasm wit_bindgen_addDomNode:
+    (WasmI32, WasmI32, WasmI32) => Void from "grain:web/dom@0.1.0"
+
+  @unsafe
+  provide let addDomNode: (String, HtmlElement) => Void = (parent, node) => {
+    let vec_list_canon_lower = parent
+    let ptr_list_canon_lower = WasmI32.(+)(
+      WasmI32.fromGrain(vec_list_canon_lower),
+      8n
+    )
+    let len_list_canon_lower = WasmI32.load(
+      WasmI32.fromGrain(vec_list_canon_lower),
+      4n
+    )
+    wit_bindgen_addDomNode(
+      ptr_list_canon_lower,
+      len_list_canon_lower,
+      WasmI32.load(WasmI32.fromGrain(node.handle), 4n)
+    )
+    void
+  }
+
   @externalName("add")
   foreign wasm wit_bindgen_add:
-    (WasmI32, WasmI32) => WasmI32 from "grain:web/dom"
+    (WasmI32, WasmI32) => WasmI32 from "grain:web/dom@0.1.0"
 
   @unsafe
   provide let add: (Uint32, Uint32) => Uint32 = (a, b) => {
@@ -46,5 +98,31 @@ provide module Dom {
       WasmI32.load(WasmI32.fromGrain(b), 4n)
     )
     WasmI32.toGrain(DataStructures.newUint32(ret)): Uint32
+  }
+
+  provide module HtmlElement {
+    @externalName("[method]html-element.set-text")
+    foreign wasm wit_bindgen_methodHtmlElement_setText:
+      (WasmI32, WasmI32, WasmI32) => Void from "grain:web/dom@0.1.0"
+
+    /// Methods
+    @unsafe
+    provide let setText: (HtmlElement, String) => Void = (self, text) => {
+      let vec_list_canon_lower = text
+      let ptr_list_canon_lower = WasmI32.(+)(
+        WasmI32.fromGrain(vec_list_canon_lower),
+        8n
+      )
+      let len_list_canon_lower = WasmI32.load(
+        WasmI32.fromGrain(vec_list_canon_lower),
+        4n
+      )
+      wit_bindgen_methodHtmlElement_setText(
+        WasmI32.load(WasmI32.fromGrain(self.handle), 4n),
+        ptr_list_canon_lower,
+        len_list_canon_lower
+      )
+      void
+    }
   }
 }

@@ -3,4 +3,17 @@ module Main
 from "./src/web.gr" include Web
 use Web.{ module Dom }
 
-print(Dom.add(1ul, 1ul))
+abstract type Start = () => Void;
+provide let _start: Start = () => {
+  print(Dom.add(1ul, 2ul))
+  let p = Dom.createParagraph("Hello World")
+  print(p)
+  Dom.addDomNode("body", p)
+  let p = Dom.createParagraph("Hello World 2")
+  print(p)
+  Dom.addDomNode("body", p)
+  let p = Dom.createParagraph("Hello World 3")
+  print(p)
+  Dom.addDomNode("body", p)
+  void
+}

@@ -1,2 +1,2 @@
-rm ./example/dist/ -rf
-cp -r ./dist ./example/dist
+rm -rf ./example/dist/
+cp -r ./dist ./example/

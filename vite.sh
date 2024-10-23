@@ -1,2 +1,0 @@
-cd example
-yarn dev
