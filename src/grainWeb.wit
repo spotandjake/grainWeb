@@ -7,6 +7,8 @@ interface web-interface {
     // Content
     get-text: func() -> option<string>;
     set-text: func(text: string) -> web-element;
+    get-html: func() -> string;
+    set-html-unsafe: func(html: string) -> web-element;
     // Children
     // Debug
     print: func();

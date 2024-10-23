@@ -2,6 +2,7 @@ module Main
 
 from "./out/grainWeb.gr" include GrainWeb
 use GrainWeb.{ module WebInterface }
+use WebInterface.{ module WebElement }
 
 @unsafe
 provide let cabi_realloc = (originalPtr, originalSize, alignment, newSize) => {
@@ -13,9 +14,10 @@ provide let _start: Start = () => {
     Some(app) => app,
     None => fail "Failed to get app"
   }
-  WebInterface.WebElement.print(app);
-  WebInterface.WebElement.getText(app);
-  WebInterface.WebElement.setText(app, "Hello, Grain!")
-
+  print(WebElement.getHtml(app));
+  WebElement.print(app);
+  WebElement.getText(app);
+  WebElement.setText(app, "Hello, Grain!")
+  print(WebElement.setHtmlUnsafe(app, "<h1>Dom From Grain</h1>"));
   void
 }

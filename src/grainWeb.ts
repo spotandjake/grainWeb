@@ -1,3 +1,6 @@
+/**
+ * This module contains the interface exposed to grain via the wit bindings generated through jco.
+ */
 import { type Option } from './types';
 import { mapOption } from './utils';
 import * as Dom from './dom';
@@ -18,6 +21,13 @@ export class WebElement {
   }
   public setText(text: string): this {
     Dom.setText(this.element, text);
+    return this;
+  }
+  public getHtml(): string {
+    return Dom.getHtml(this.element);
+  }
+  public setHtmlUnsafe(html: string): this {
+    Dom.setHtmlUnsafe(this.element, html);
     return this;
   }
   // Children
