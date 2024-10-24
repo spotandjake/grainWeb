@@ -1,6 +1,33 @@
 package spotandjake:grain-web@0.0.1;
 
 interface web-interface {
+  // Location
+  resource web-location {
+    get-href: func() -> string;
+    set-href: func(href: string);
+    get-protocol: func() -> string;
+    set-protocol: func(protocol: string);
+    get-host: func() -> string;
+    set-host: func(host: string);
+    get-hostname: func() -> string;
+    set-hostname: func(hostname: string);
+    get-port: func() -> string;
+    set-port: func(port: string);
+    get-pathname: func() -> string;
+    set-pathname: func(pathname: string);
+    get-search: func() -> string;
+    set-search: func(search: string);
+    get-hash: func() -> string;
+    set-hash: func(hash: string);
+    get-origin: func() -> string;
+
+    assign: func(url: string);
+    reload: func();
+    replace: func(url: string);
+    to-string: func() -> string;
+  }
+  get-location: func() -> web-location;
+  // WebElement
   resource web-element {
     // Queries
     query: func(selector: string) -> option<web-element>;

@@ -4,7 +4,7 @@ from "list" include List
 
 from "./out/grainWeb.gr" include GrainWeb
 use GrainWeb.{ module WebInterface }
-use WebInterface.{ module WebElement }
+use WebInterface.{ module WebElement, module WebLocation }
 
 @unsafe
 provide let cabi_realloc = (originalPtr, originalSize, alignment, newSize) => {
@@ -23,6 +23,7 @@ provide let _start: Start = () => {
     e => ignore(WebElement.removeChild(app, e)),
     WebElement.children(app)
   )
+  print(WebLocation.getHref(WebInterface.getLocation()))
   // Build A Basic Website
   let container = WebInterface.createNode("div")
   WebElement.setStyleProperty(container, "padding", "2rem")
