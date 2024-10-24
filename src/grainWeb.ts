@@ -4,7 +4,6 @@
 import { type Option, type Result } from './types';
 import { mapOption } from './utils';
 import * as Dom from './dom';
-
 export class WebElement {
   private element: Element;
   constructor(element: Element) {
@@ -39,7 +38,7 @@ export class WebElement {
   // Nodes
   public parent(): Option<WebElement> {
     const parent = Dom.getParent(this.element);
-    return mapOption(parent, (v) => new WebElement(v))
+    return mapOption(parent, (v) => new WebElement(v));
   }
   public children(): Array<WebElement> {
     return Dom.getChildren(this.element).map((v: Element) => new WebElement(v));
@@ -117,9 +116,9 @@ export class WebElement {
 // Creation
 export const createNode = (tag: string): WebElement => {
   return new WebElement(document.createElement(tag));
-}
+};
 // Queries
 export const query = (selector: string): Option<WebElement> => {
   const queryElement = Dom.query(document, selector);
   return mapOption(queryElement, (v) => new WebElement(v));
-}
+};
