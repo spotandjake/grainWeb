@@ -1,5 +1,7 @@
 module Main
 
+from "list" include List
+
 from "./out/grainWeb.gr" include GrainWeb
 use GrainWeb.{ module WebInterface }
 use WebInterface.{ module WebElement }
@@ -10,14 +12,35 @@ provide let cabi_realloc = (originalPtr, originalSize, alignment, newSize) => {
 }
 abstract type Start = () => Void
 provide let _start: Start = () => {
+  print("Grain Console Support")
+  // Get App
   let app = match (WebInterface.query("#app")) {
     Some(app) => app,
     None => fail "Failed to get app"
   }
-  print(WebElement.getHtml(app));
-  WebElement.print(app);
-  WebElement.getText(app);
-  WebElement.setText(app, "Hello, Grain!")
-  print(WebElement.setHtmlUnsafe(app, "<h1>Dom From Grain</h1>"));
+  // Remove existing children
+  List.forEach((e) => ignore(WebElement.removeChild(app, e)), WebElement.children(app))
+  // Build A Basic Website
+  let container = WebInterface.createNode("div")
+  WebElement.setStyleProperty(container, "padding", "2rem")
+  WebElement.setStyleProperty(container, "border-radius", "1rem")
+  WebElement.setStyleProperty(container, "background-color", "#111")
+  WebElement.setStyleProperty(container, "color", "white")
+
+  let header = WebInterface.createNode("h1")
+  WebElement.setText(header, "Welcome, this is a Grain Web App 🌾")
+  WebElement.setStyleProperty(header, "color", "orange")
+  WebElement.appendChild(container, header)
+
+  let text = WebInterface.createNode("p")
+  WebElement.setText(text, "The api is still pretty new but this is all coming from grain!")
+  WebElement.appendChild(container, text)
+
+  let link = WebInterface.createNode("a")
+  WebElement.setText(link, "Check out the source code")
+  WebElement.setHref(link, "https://github.com/spotandjake/grainWeb")
+  WebElement.appendChild(container, link)
+  // Append To App
+  WebElement.appendChild(app, container)
   void
 }

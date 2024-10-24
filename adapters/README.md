@@ -1,0 +1,2 @@
+# Adapters
+This folder contains a wasi preview1 adapter in the command world this is neccessary because grain currently uses wasi preview1 but components requiring shimming of wasm preview2 these shims can be found [here](https://github.com/bytecodealliance/wasmtime/blob/main/crates/wasi-preview1-component-adapter/README.md)

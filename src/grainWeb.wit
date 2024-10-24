@@ -9,11 +9,39 @@ interface web-interface {
     set-text: func(text: string) -> web-element;
     get-html: func() -> string;
     set-html-unsafe: func(html: string) -> web-element;
-    // Children
-    // Debug
+    get-value: func() -> option<string>;
+    set-value: func(value: string) -> result;
+    // Nodes
+    parent: func() -> option<web-element>;
+    children: func() -> list<web-element>;
+    next-sibling: func() -> option<web-element>;
+    previous-sibling: func() -> option<web-element>;
+    append-child: func(child: web-element) -> web-element;
+    prepend-child: func(child: web-element) -> web-element;
+    remove-child: func(child: web-element) -> web-element;
+    insert-after: func(sibling: web-element) -> bool;
+    insert-before: func(sibling: web-element) -> bool;
+    // Css
+    add-class: func(class-name: string) -> web-element;
+    remove-class: func(class-name: string) -> web-element;
+    toggle-class: func(class-name: string) -> bool;
+    has-class: func(class-name: string) -> bool;
+    get-class-list: func() -> list<string>;
+    // Style
+    // TODO: Get style
+    set-style-property: func(property: string, value: string) -> bool;
+    // Attributes
+    get-href: func() -> option<string>; 
+    set-href: func(href: string) -> bool;
+    get-attribute: func(name: string) -> option<string>;
+    set-attribute: func(name: string, value: string);
+    // Generic
+    get-tag-name: func() -> string;
     print: func();
   }
-  // queries
+  // Creation
+  create-node: func(tag: string) -> web-element;
+  // Queries
   query: func(selector: string) -> option<web-element>;
 }
 

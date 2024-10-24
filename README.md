@@ -64,3 +64,19 @@ If you want to learn more about [component model](https://github.com/WebAssembly
 
 # Inspiration
 The dom api is loosely inspired by [tiny-query-dom](https://github.com/nazmul-nhb/tiny-query-dom/tree/main) but with a focus on type safety and usability.
+
+
+# TODO
++ [x] Get initial component model setup and working for mvp
++ [ ] Write a complete set of dom bindings
++ [ ] Write tests using jest
++ [ ] Write other important web bindings
++ [ ] Write a dynamic dispatch function that allows for accessing anything else
+  + This will be unsafe so we will mark it as such
++ [ ] Look into how resources are freed as we pass handles into grain but we don't know when they are lost in grain-land?
++ [ ] Write a bundler or plugin system so that users do not need to worry about the bindings steps:
+  + Generate Bindings in a github action
+  + Make a plugin (Rollup? webpack? i do not know yet)
+  + Use wasm tools js api (if exists??) to 
+  + Use jco through js to generate our bindings
+  + Use whatever tool im using to bundle everything into a single import
