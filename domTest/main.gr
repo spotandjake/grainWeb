@@ -1,0 +1,23 @@
+module Main
+
+from "option" include Option
+
+from "./out/browser.gr" include Browser
+use Browser.{ module Dom }
+use Dom.{ module Window, module Console, module Document, module HtmlElement }
+@unsafe
+provide let cabi_realloc = (originalPtr, originalSize, alignment, newSize) => {
+  Browser.cabi_realloc(originalPtr, originalSize, alignment, newSize)
+}
+
+abstract type Start = () => Void
+
+provide let _start: Start = () => {
+  let window = Dom.getWindow()
+  let console = Window.console(window)
+  Dom.Console.log(console, ["Hello, world!"])
+  let document = Window.document(window)
+  let body = Option.unwrap(Document.body(document))
+  HtmlElement.setInnerHtml(body, "<h1>Hello, world!</h1>")
+  // GlobalConsole.log(["Hello, world!"])
+}

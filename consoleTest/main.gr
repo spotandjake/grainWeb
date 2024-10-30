@@ -1,0 +1,14 @@
+module Main
+
+from "./out/consoleTest.gr" include ConsoleTest
+use ConsoleTest.{ module GlobalConsole }
+@unsafe
+provide let cabi_realloc = (originalPtr, originalSize, alignment, newSize) => {
+  ConsoleTest.cabi_realloc(originalPtr, originalSize, alignment, newSize)
+}
+
+abstract type Start = () => Void
+
+provide let _start: Start = () => {
+  GlobalConsole.log(["Hello, world!"])
+}
